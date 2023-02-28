@@ -57,6 +57,7 @@ def add_registers_db():
         cur.execute("INSERT INTO advertising (TV, radio, newspaper, sales) VALUES (?, ?, ?, ?)",
                     (tv, radio, newspaper, sales))
         connection.commit()
+        connection.close()
 
         cur = connection.cursor()
         last_rows = '''SELECT * FROM advertising ORDER BY row_id DESC LIMIT 5;'''
