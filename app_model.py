@@ -87,11 +87,11 @@ def retrain_model():
     cv_score = round(cross_val_score(model, X, y).mean(), 2)
 
     # save the new model
-    with open('advertising_model_v2', 'wb') as f:
+    with open('data/advertising_model_v2', 'wb') as f:
         pickle.dump(model, f)
 
     return f'Model retrained with the latest data and has a cross_val_score of {cv_score}'
 
 
 
-app.run()  # python anywhere needs this to be commented as automatically runs this as app
+#app.run()  # python anywhere needs this to be commented as automatically runs this as app
