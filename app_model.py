@@ -64,7 +64,7 @@ def retrain_model():
     # connect and load in full dataset
     connection = sqlite3.connect('data/advertising_model_data.db')
     fetch_table = '''SELECT * FROM advertising'''
-    data = pd.read_sql(fetch_table, connection, index_col = 'index', coerce_float = True)
+    data = pd.read_sql(fetch_table, connection, coerce_float = True)
 
     # split the X and y
     X = data.drop(columns = ['sales'])
