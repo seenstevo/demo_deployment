@@ -5,7 +5,7 @@ from sklearn.model_selection import cross_val_score
 import pandas as pd
 
 
-os.chdir(os.path.dirname(__file__))
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
 
 app = Flask(__name__)
 app.config['DEBUG'] = True
