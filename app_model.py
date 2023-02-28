@@ -59,6 +59,7 @@ def add_registers_db():
         connection.commit()
         connection.close()
 
+        connection = sqlite3.connect('data/advertising_model_data.db')
         cur = connection.cursor()
         last_rows = '''SELECT * FROM advertising ORDER BY row_id DESC LIMIT 5;'''
         result = pd.DataFrame(cur.execute(last_rows).fetchall(), columns = ['row_id', 'TV', 'radio', 'newspaper', 'sales']).set_index('row_id')
