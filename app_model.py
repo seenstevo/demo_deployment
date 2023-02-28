@@ -70,7 +70,7 @@ def retrain_model():
     X = data.drop(columns = ['sales'])
     y = data['sales']
     model.fit(X, y)
-    cv_score = cross_val_score(model, X, y)
+    cv_score = round(cross_val_score(model, X, y).mean(), 2)
 
     # save the new model
     with open('advertising_model_v2', 'wb') as f:
