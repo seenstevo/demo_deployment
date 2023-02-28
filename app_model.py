@@ -86,13 +86,13 @@ def retrain_model():
     X = data.drop(columns = ['sales'])
     y = data['sales']
     model.fit(X, y)
-    cv_score = round(cross_val_score(model, X, y).mean(), 2)
+    cv_score = cross_val_score(model, X, y, cv = 3)
 
     # save the new model
-    with open('data/advertising_model_v2', 'wb') as f:
+    with open('data/advertising_model', 'wb') as f:
         pickle.dump(model, f)
 
-    return f'Model retrained with the latest data and has a cross_val_score of {cv_score}'
+    return f'New model saved and retrained with the latest data and has a cross_val_scores (cv=3) of {cv_score}'
 
 
 
