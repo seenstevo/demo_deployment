@@ -21,7 +21,7 @@ def hello():
 def predict():
     model = pickle.load(open('data/advertising_model','rb'))
 
-    tv = request.args.get('tv', None)
+    tv = request.args.get('TV', None)
     radio = request.args.get('radio', None)
     newspaper = request.args.get('newspaper', None)
 
