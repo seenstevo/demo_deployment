@@ -12,6 +12,6 @@ connection = sqlite3.connect('data/advertising_model_data.db')
 # load the data into a Pandas DataFrame
 data = pd.read_csv('data/Advertising.csv', index_col = 0)
 # write the data to a sqlite table
-data.to_sql('advertising', connection)
+data.to_sql('advertising', connection, index = False)
 connection.commit()
 connection.close()

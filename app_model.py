@@ -76,7 +76,7 @@ def retrain_model():
     with open('advertising_model_v2', 'wb') as f:
         pickle.dump(model, f)
 
-    return 'Model retrained with the latest data and has a cross_val_score of {cv_score}'
+    return f'Model retrained with the latest data and has a cross_val_score of {cv_score}'
 
 
 
