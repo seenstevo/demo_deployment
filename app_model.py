@@ -81,7 +81,7 @@ def retrain_model():
     data = pd.read_sql(fetch_table, connection, coerce_float = True)
 
     # split the X and y
-    X = data.drop(columns = ['sales']).values
+    X = data.drop(columns = ['sales', 'row_id']).values
     y = data['sales'].values
     model.fit(X, y)
     cv_score = cross_val_score(model, X, y, cv = 3)
