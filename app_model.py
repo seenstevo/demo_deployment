@@ -27,15 +27,16 @@ def predict():
     model = pickle.load(open('data/advertising_model','rb'))
 
     predict_vals = {k.lower(): v for k, v in request.args.to_dict().items()}
+
     if len(predict_vals) != 3:
-        return 'This model needs 3 fields to make a prediction of sales (TV, radio and newspaper). Please review input and try again'
+        return f'This model needs 3 fields to make a prediction of sales (TV, radio and newspaper). Please review input and try again{predict_vals}'
 
     else:
         tv = predict_vals['tv']
         radio = predict_vals['radio']
         newspaper = predict_vals['newspaper']
         prediction = model.predict([[tv,radio,newspaper]])
-        return "The prediction of sales investing that amount of money in TV, radio and newspaper is: " + str(round(prediction[0],2)) + 'k €'
+        return f'The prediction of sales investing that amount of money in TV, radio and newspaper is: {str(round(prediction[0],2))}k €. {predict_vals}'
 
 
 
