@@ -26,14 +26,13 @@ def hello():
 def predict():
     model = pickle.load(open('data/advertising_model','rb'))
 
-    predict_vals = pd.DataFrame({k.lower(): v for k, v in request.args.to_dict().items()})
+    predict_vals = {k.lower(): v for k, v in request.args.to_dict().items()}
 
     if len(predict_vals) != 3:
         return f'This model needs 3 fields to make a prediction of sales (TV, radio and newspaper). Please review input and try again'
 
     else:
-        predict_vals = predict_vals.rename(columns = {'tv': 'TV'})
-        prediction = model.predict(predict_vals)
+        prediction = model.predict([predict_vals.values()])
         return f'The prediction of sales investing that amount of money in TV, radio and newspaper is: {str(round(prediction[0],2))}k €. {predict_vals}'
 
 
@@ -82,8 +81,8 @@ def retrain_model():
     data = pd.read_sql(fetch_table, connection, coerce_float = True)
 
     # split the X and y
-    X = data.drop(columns = ['sales'])
-    y = data['sales']
+    X = data.drop(columns = ['sales']).values
+    y = data['sales'].values
     model.fit(X, y)
     cv_score = cross_val_score(model, X, y, cv = 3)
 
