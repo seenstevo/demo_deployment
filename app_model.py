@@ -32,7 +32,7 @@ def predict():
         return f'This model needs 3 fields to make a prediction of sales (TV, radio and newspaper). Please review input and try again'
 
     else:
-        prediction = model.predict([predict_vals['tv'], predict_vals['radio'], predict_vals['newspaper']])
+        prediction = model.predict([[predict_vals['tv'], predict_vals['radio'], predict_vals['newspaper']]])
         return f'The prediction of sales investing that amount of money in TV, radio and newspaper is: {str(round(prediction[0],2))}k €. {predict_vals}'
 
 
