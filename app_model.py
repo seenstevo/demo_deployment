@@ -26,7 +26,7 @@ def hello():
 def predict():
     model = pickle.load(open('data/advertising_model','rb'))
 
-    predict_vals = {k.lower(): v for k, v in request.args.to_dict().items()}
+    predict_vals = {k.lower(): float(v) for k, v in request.args.to_dict().items()}
 
     if len(predict_vals) != 3:
         return f'This model needs 3 fields to make a prediction of sales (TV, radio and newspaper). Please review input and try again'
