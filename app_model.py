@@ -22,7 +22,7 @@ def hello():
 
 
 # 1. Wndpoint que devuelva la predicción de los nuevos datos enviados mediante argumentos en la llamada
-@app.route('/v1/predict', methods=['GET'])
+@app.route('/v2/predict', methods=['GET'])
 def predict():
     model = pickle.load(open('data/advertising_model','rb'))
 
@@ -39,7 +39,7 @@ def predict():
 
 
 # 2. To save new registers in the database
-@app.route('/v1/add_register', methods= ['POST'])   # this allows for inserting new data
+@app.route('/v2/add_register', methods= ['POST'])   # this allows for inserting new data
 def add_registers_db():
     new_entry = {k.lower(): v for k, v in request.args.to_dict().items()}
     if len(new_entry) != 4:
@@ -66,7 +66,7 @@ def add_registers_db():
 
 
 # 3. Retrain the model on the new data
-@app.route('/v1/retrain', methods = ['PUT'])    # this method allows for rewriting
+@app.route('/v2/retrain', methods = ['PUT'])    # this method allows for rewriting
 def retrain_model():
 
     # load in the existing model
