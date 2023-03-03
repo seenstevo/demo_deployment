@@ -91,5 +91,4 @@ def retrain_model():
     return f'New model saved and retrained with the latest data and has a cross_val_scores (cv=3) of {cv_score}'
 
 
-if __name__ == "__main__":
-    #app.run()  # python anywhere needs this to be commented as automatically runs this as app
+#app.run()  # python anywhere needs this to be commented as automatically runs this as app
