@@ -39,7 +39,7 @@ def predict():
 
 
 # 2. To save new registers in the database
-@app.route('/v1/add_register', methods= ['GET'])
+@app.route('/v1/add_register', methods= ['POST'])   # this allows for inserting new data
 def add_registers_db():
     new_entry = {k.lower(): v for k, v in request.args.to_dict().items()}
     if len(new_entry) != 4:
@@ -54,14 +54,11 @@ def add_registers_db():
         cur = connection.cursor()
         cur.execute("INSERT INTO advertising (TV, radio, newspaper, sales) VALUES (?, ?, ?, ?)",
                     (tv, radio, newspaper, sales))
-        connection.commit()
-        connection.close()
-
-        connection = sqlite3.connect('data/advertising_model_data.db')
         cur = connection.cursor()
         last_rows = '''SELECT * FROM advertising ORDER BY row_id DESC LIMIT 5;'''
         result = pd.DataFrame(cur.execute(last_rows).fetchall(), columns = ['row_id', 'TV', 'radio', 'newspaper', 'sales']).set_index('row_id')
         result = result.to_html()
+        connection.commit()
         connection.close()
 
     return f'New data added successfully and here are the last 5 rows:\n\n\n{result}'
@@ -69,11 +66,12 @@ def add_registers_db():
 
 
 # 3. Retrain the model on the new data
-@app.route('/v1/retrain', methods=['GET'])
+@app.route('/v1/retrain', methods = ['PUT'])    # this method allows for rewriting
 def retrain_model():
 
     # load in the existing model
-    model = pickle.load(open('data/advertising_model','rb'))
+    with open('data/advertising_model','rb') as f:
+        model = pickle.load(f)
 
     # connect and load in full dataset
     connection = sqlite3.connect('data/advertising_model_data.db')
@@ -93,5 +91,5 @@ def retrain_model():
     return f'New model saved and retrained with the latest data and has a cross_val_scores (cv=3) of {cv_score}'
 
 
-
-#app.run()  # python anywhere needs this to be commented as automatically runs this as app
+if __name__ == "__main__":
+    app.run()  # python anywhere needs this to be commented as automatically runs this as app
