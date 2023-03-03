@@ -92,4 +92,4 @@ def retrain_model():
 
 
 if __name__ == "__main__":
-    app.run()  # python anywhere needs this to be commented as automatically runs this as app
+    #app.run()  # python anywhere needs this to be commented as automatically runs this as app
